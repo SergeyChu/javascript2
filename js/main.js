@@ -13,7 +13,6 @@ function fetchData () {
 			title: items[i],
 			price: prices[i],
 			img: image,
-			id: i+1,
 		});
 	}
 	return arr
@@ -35,35 +34,6 @@ class ProductList {
 	fetchProducts () {
 		this.products = fetchData ()
 	}
-	addProduct(product){
-		this.products.push ({
-			title: product.title,
-			price: product.price,
-			img: product.image,
-			id: product.id,
-		});
-	}
-	removeProduct(id){
-		for( var i = 0; i < this.products.length; i++){ 
-			if ( this.products[i].id == id) {
-				this.products.splice(i, 1); 
-			}
-		 }
-	}
-	getAllGoodsCount(){
-		let summ = 0;
-		for( var i = 0; i < this.products.length; i++){ 
-			summ += this.products[i].price
-		}
-
-		return summ;
-	}
-	//Just for test
-	printGoodNames(){
-		for( var i = 0; i < this.products.length; i++){
-			console.log(i + " " + this.products[i].title)
-		}
-	}
 	render () {
 		const block = document.querySelector ('.products')
 		this.products.forEach (product => {
@@ -78,7 +48,6 @@ class Product {
 		this.title = product.title
 		this.price = product.prices
 		this.img = product.img
-		this.id = product.id
 	}
 	render () {
 		return `<div class="product-item">
@@ -89,37 +58,13 @@ class Product {
                             <button class="buy-btn" 
                             data-name="${this.title}"
                             data-image="${this.img}"
-							data-price="${this.price}"
-							data-id="${this.id}">Купить</button>
+                            data-price="${this.price}">Купить</button>
                         </div>
                     </div>`
 	}
 }
 
-
-
 let productList = new ProductList ();
-console.log("Summ of all the goods: " + productList.getAllGoodsCount())
-console.log(productList.printGoodNames())
-
-
-id = 3
-console.log("Removing the product with id: " + id)
-productList.removeProduct(id)
-console.log(productList.printGoodNames())
-console.log("Summ of all the goods: " + productList.getAllGoodsCount())
-
-
-testProd = {
-	title: "My trashy product",
-	price: 666,
-	img: 'https://placehold.it/200x150',
-	id: 9,
-}
-console.log("Adding a product")
-productList.addProduct(testProd)
-console.log(productList.printGoodNames())
-console.log("Summ of all the goods: " + productList.getAllGoodsCount())
 
 
 // document.querySelector ('.btn-cart').addEventListener ('click', () => {
