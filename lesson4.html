@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let texttoreplace = `
+One: 'Hi Mary.' Two: 'Oh, hi.'
+One: 'How are you doing?'
+Two: 'I'm doing alright. How about you?'
+    One: 'Not too bad. The weather is great isn't it?'
+    Two: 'Yes. It's absolutely beautiful today.'
+One: 'I wish it was like this more frequently.'
+Two: 'Me too.'
+One: 'So where are you going now?'
+Two: 'I'm going to meet a friend of mine at the department store.'
+One: 'Going to do a little shopping?'
+Two: 'Yeah, I have to buy some presents for my parents.'
+One: 'What's the occasion?'
+    Two: 'It's their anniversary.'
+One: 'That's great. Well, you better get going. You don't want to be late.'
+Two: 'I'll see you next time.'
+One: 'Sure. Bye.'
+    `
+    
+    result = texttoreplace.replace(/( ')/gi, ' "').replace(/(' )/gi, '" ').replace(/('\n)/gi , '"\n').replace(/^(')/gi, '"').replace(/(')$/gi,'"');
+    console.log(result)
+    //console.log(texttoreplace.match(/( ')|(' )|('\n)|^(')|(')$/))
+    
+
+    function checkName(){
+        
+        targetEl = document.getElementById("name");
+
+        if (targetEl.value.match(/([^A-zА-я].*)|_/)) {
+            targetEl.style = "outline: 2px solid red";
+            return false;
+        }       
+         else {
+            targetEl.style = "outline: 2px solid green";
+            return true;
+        }
+        
+    }
+
+    function checkPhone(){
+        
+        targetEl = document.getElementById("phone");
+
+        //+7(000)000-0000
+        if (targetEl.value.match(/\+7\(\d\d\d\)\d\d\d-\d\d\d\d/)) {
+            targetEl.style = "outline: 2px solid green";
+            return true;
+        } 
+        else { 
+            targetEl.style = "outline: 2px solid red"; 
+            return false;
+            } 
+        
+    }
+
+    function checkMail(){
+        
+        targetEl = document.getElementById("email");
+
+        //+7(000)000-0000
+        if (targetEl.value.match(/[A-z]+(\.|-|[A-z]*)[A-z]+@[A-z]+\.[A-z]+/)){
+            targetEl.style = "outline: 2px solid green";
+            return true;
+        }
+        else {
+            targetEl.style = "outline: 2px solid red";
+            return false;  
+        }
+    }
+
+    function checkForm(){
+
+        if (!checkName() || !checkPhone() || !checkMail())
+            alert("Ошибка в заполнении полей");
+              
+    }
+    
+    
+</script>
+<form>
+    <label for="name">Name</label>
+    <br>
+    <input type="text" id="name" oninput="checkName()">
+    <br>
+    <label for="phone">Phone</label>
+    <br>
+    <input type="text" id="phone" oninput="checkPhone()">
+    <br>
+    <label for="email">Email</label>
+    <br>
+    <input type="text" id="email" oninput="checkMail()">
+    <br>
+    <label for="text">Text</label>
+    <br>
+    <textarea name="text" id="text" cols="30" rows="10"></textarea>
+    <br>      
+    <button onclick="checkForm()">Отправить</button>   
+</form>
+</body>
+</html>
