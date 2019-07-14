@@ -18,8 +18,8 @@
                 </button>
             </form>
             <button class="btn-cart" type="button" @click="toggleCart()">Корзина</button>
-            <div class="cart-block" v-bind:class="{ invisible: is_invisible_cart }" v-for="citem of cart_content" :key="citem.id_product">
-                <div class="cart-item" :data-id="citem.id_product">
+            <div class="cart-block" v-bind:class="{ invisible: is_invisible_cart }">
+                <div class="cart-item" v-for="citem of cart_content" :key="citem.id_product">
                     <div class="product-bio">
                         <img src="https://placehold.it/100x80" alt="some image">
                         <div class="product-desc">
@@ -28,11 +28,10 @@
                             <p class="product-single-price">{{ citem.price }}</p>
                         </div>
                         <div class="right-block">
-                            <button class="del-btn" :data-id="citem.id_product">&times;</button>
+                            <button class="del-btn" @click="removeFromCart(citem.id_product)">&times;</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </header>
@@ -43,7 +42,7 @@
                 <div class="desc">
                     <h3>{{ product.product_name }}</h3>
                     <p>{{ product.price }} $</p>
-                    <button class="buy-btn" @click="addProduct(product)">Купить</button>
+                    <button class="buy-btn" @click="addToCart(product.id_product)">Купить</button>
                 </div>
             </div>
         </div>

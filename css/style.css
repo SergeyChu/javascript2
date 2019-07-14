@@ -142,6 +142,7 @@ img {
 }
 .right-block{
     text-align: right;
+    margin-left: 10px;
 }
 .btn-search {
     background-color: transparent;

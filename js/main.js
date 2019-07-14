@@ -19,9 +19,6 @@ let app = new Vue({
                     console.log(error)
                 })
         },
-        addProduct(product){
-            console.log(product.id_product);
-        },
         filterGoods(){
             console.log(this.search_line);
 
@@ -33,24 +30,40 @@ let app = new Vue({
             }
         },
         toggleCart(){
-           this.is_invisible_cart = !this.is_invisible_cart; 
+           this.is_invisible_cart = !this.is_invisible_cart;
+           console.log("Switched cart"); 
+           console.log("Cart lenght: " + this.cart_content.length)
         },
         addToCart(id){
 
-            productObj = []
-            for (let prod of this.products){
-                if (prod.id_product == id)
-                    productObj = prod;
-                    break;
+            console.log("Got id: " + id);
+
+            productObj = {
+                    id_product: "",
+                    product_name: "",
+                    quantity: "",
+                    price: ""
             }
 
-            for (var i = 0; i < this.cart_content; i++){
+            for (let prod of this.products){
+
+                if (prod.id_product == id) {
+                    productObj.id_product = prod.id_product;
+                    productObj.product_name = prod.product_name;
+                    productObj.quantity = 1;
+                    productObj.price = prod.price;
+                    break;
+                }
+            }
+            
+
+            for (var i = 0; i < this.cart_content.length; i++){
+
                 if (this.cart_content[i].id_product == id) {
                     this.cart_content[i].quantity += this.cart_content[i].quantity;
                     return
                 }
             }
-            console.log("The product was not found, increasing count");
             
             //If nothing is found
             this.cart_content.push(
@@ -61,6 +74,17 @@ let app = new Vue({
                     price: productObj.price
                 }
             )
+          console.log(this.cart_content);  
+        },
+        removeFromCart(id){
+
+            for (var i = 0; i < this.cart_content.length; i++){
+
+                if (this.cart_content[i].id_product == id) {
+                    this.cart_content.splice(i,1);
+
+                }
+            }
         }
     },
     mounted(){
