@@ -11,47 +11,23 @@
     <header>
         <div class="logo">E-shop</div>
         <div class="cart">
-            <form action="#" class="search-form">
-                <input type="text" class="search-field" v-model=" search_line ">
-                <button class="btn-search" type="submit" @click="filterGoods()">
+            <form action="#" class="search-form" @submit.prevent='filter'>
+                <input type="text" class="search-field" v-model='userSearch'>
+                <button class="btn-search" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-            <button class="btn-cart" type="button" @click="toggleCart()">Корзина</button>
-            <div class="cart-block" v-bind:class="{ invisible: is_invisible_cart }">
-                <div class="cart-item" v-for="citem of cart_content" :key="citem.id_product">
-                    <div class="product-bio">
-                        <img src="https://placehold.it/100x80" alt="some image">
-                        <div class="product-desc">
-                            <p class="product-title">{{ citem.product_name}}</p>
-                            <p class="product-quantity">{{ citem.quantity }}</p>
-                            <p class="product-single-price">{{ citem.price }}</p>
-                        </div>
-                        <div class="right-block">
-                            <button class="del-btn" @click="removeFromCart(citem.id_product)">&times;</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <cart></cart>
         </div>
     </header>
     <main>
-        <div class="products">
-            <div class="product-item" v-for="product of f_products" :key="product.id_product">
-                <img :src="imgCatalog" alt="Some img">
-                <div class="desc">
-                    <h3>{{ product.product_name }}</h3>
-                    <p>{{ product.price }} $</p>
-                    <button class="buy-btn" @click="addToCart(product.id_product)">Купить</button>
-                </div>
-            </div>
-        </div>
+        <products></products>
     </main>
-
-
 </div>
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/CartComp.js"></script>
+    <script src="js/ProdComp.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

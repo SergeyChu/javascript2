@@ -5,102 +5,31 @@ let app = new Vue({
     data: {
         catalogUrl: '/catalogData.json',
         products: [],
-        f_products: [],
         imgCatalog: 'https://placehold.it/200x150',
-        search_line: "",
-        cart_content: [],
-        is_invisible_cart: true
+        cartShown: false,
+        userSearch: '',
+        filtered: []
     },
+    components: {cart, products},
     methods: {
-        getJson(url){
-            return fetch(url)
+        getJson(API){
+            return fetch(API)
                 .then(result => result.json())
                 .catch(error => {
                     console.log(error)
                 })
         },
-        filterGoods(){
-            console.log(this.search_line);
-
-            this.f_products = [];
-
-            for (let prod of this.products){
-                if (prod.product_name.includes(this.search_line) || this.search_line == "")
-                    this.f_products.push(prod)
-            }
+        addProduct(product){
+            console.log(product.id_product);
         },
-        toggleCart(){
-           this.is_invisible_cart = !this.is_invisible_cart;
-           console.log("Switched cart"); 
-           console.log("Cart lenght: " + this.cart_content.length)
+        filter(){
+            console.log("Filter was called");
+            this.$children[1].filter();
         },
-        addToCart(id){
-
-            console.log("Got id: " + id);
-
-            productObj = {
-                    id_product: "",
-                    product_name: "",
-                    quantity: "",
-                    price: ""
-            }
-
-            for (let prod of this.products){
-
-                if (prod.id_product == id) {
-                    productObj.id_product = prod.id_product;
-                    productObj.product_name = prod.product_name;
-                    productObj.quantity = 1;
-                    productObj.price = prod.price;
-                    break;
-                }
-            }
-            
-
-            for (var i = 0; i < this.cart_content.length; i++){
-
-                if (this.cart_content[i].id_product == id) {
-                    this.cart_content[i].quantity += this.cart_content[i].quantity;
-                    return
-                }
-            }
-            
-            //If nothing is found
-            this.cart_content.push(
-                {
-                    id_product: productObj.id_product,
-                    product_name: productObj.product_name,
-                    quantity: productObj.quantity,
-                    price: productObj.price
-                }
-            )
-          console.log(this.cart_content);  
-        },
-        removeFromCart(id){
-
-            for (var i = 0; i < this.cart_content.length; i++){
-
-                if (this.cart_content[i].id_product == id) {
-                    this.cart_content.splice(i,1);
-
-                }
-            }
-        }
+        
     },
     mounted(){
-        this.getJson(`${API + this.catalogUrl}`)
-            .then(data => {
-                for(let el of data){
-                    this.products.push(el);
-                    this.f_products.push(el);
-                }
-            });
-        /*this.getJson(`getProducts.json`)
-            .then(data => {
-                for(let el of data){
-                    this.products.push(el);
-                }
-            });*/
+        
     }
 })
 // class List {
