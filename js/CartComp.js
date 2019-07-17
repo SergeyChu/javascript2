@@ -2,15 +2,15 @@ const cartItem = {
     template: `
             <div class="cart-item">
                 <div class="product-bio">
-                    <img src="${this.img}" alt="Some image">
+                    <img :src="img" alt="Some image">
                     <div class="product-desc">
-                        <p class="product-title">${this.product_name}</p>
-                        <p class="product-quantity">Quantity: ${this.quantity}</p>
-                        <p class="product-single-price">$${this.price} each</p>
+                        <p class="product-title">{{ product.product_name }}</p>
+                        <p class="product-quantity">Quantity: {{ product.quantity }} </p>
+                        <p class="product-single-price">{{ product.price }} each</p>
                     </div>
                 </div>
                 <div class="right-block">
-                    <p class="product-price">${this.quantity*this.price}</p>
+                    <p class="product-price">{{ product.price * product.quantity }}</p>
                     <button class="del-btn">&times;</button>
                 </div>
             </div>

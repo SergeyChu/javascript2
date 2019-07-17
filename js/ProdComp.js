@@ -39,9 +39,20 @@ const products = {
     },
     methods: {
         filter() {
-            console.log("Filter from child was called");
-            let regExp = new RegExp (this.userSearch, 'i');
-            this.filtered = this.products.filter (el => regExp.test (el.product_name))
+            
+            searchVal = this.$root.$refs.userSearch.value
+
+            console.log("Filter from child was called: " + searchVal);
+            
+            this.filtered = [];
+
+            for (let prod of this.products){
+
+                if (prod.product_name.includes(searchVal) || searchVal == "")
+                    this.filtered.push(prod)
+            }
+            
+            console.log(this.filtered);
         }
     },
     template: `

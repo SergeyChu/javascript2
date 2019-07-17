@@ -24,7 +24,7 @@ let app = new Vue({
         },
         filter(){
             console.log("Filter was called");
-            this.$children[1].filter();
+            this.$root.$refs.products.filter();
         },
         
     },
